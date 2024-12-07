@@ -1,31 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh sách tin tức</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Danh Sách Bài Viết</title>
 </head>
 <body>
-    <div class="container mt-5">
-        <h1>Danh sách tin tức</h1>
-        <div class="row">
-            <?php if (!empty($news)): ?>
-                <?php foreach ($news as $item): ?>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <img src="<?= $item['image'] ?>" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title"><?= $item['title'] ?></h5>
-                                <a href="index.php?controller=home&action=detail&id=<?= $item['id'] ?>" class="btn btn-primary">Xem chi tiết</a>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p>Không có tin tức nào để hiển thị.</p>
-            <?php endif; ?>
-        </div>
-    </div>
+    <h2>Danh Sách Bài Viết</h2>
+    <a href="index.php?controller=news&action=add">Thêm bài viết</a>
+    <table border="1">
+        <tr><th>ID</th><th>Tiêu đề</th><th>Ngày tạo</th><th>Hành động</th></tr>
+        <?php foreach ($news as $item): ?>
+        <tr>
+            <td><?= $item['id'] ?></td>
+            <td><?= $item['title'] ?></td>
+            <td><?= $item['created_at'] ?></td>
+            <td>
+                <a href="index.php?controller=news&action=edit&id=<?= $item['id'] ?>">Sửa</a> | 
+                <a href="index.php?controller=news&action=delete&id=<?= $item['id'] ?>">Xóa</a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
 </body>
 </html>

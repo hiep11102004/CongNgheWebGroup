@@ -12,10 +12,12 @@
             <th>ID</th><th>Tiêu đề</th><th>Ngày tạo</th><th>Hành động</th>
         </tr>
         <?php
+        // Kiểm tra nếu $news không tồn tại hoặc không phải là mảng, khởi tạo thành mảng trống
         if (!isset($news) || !is_array($news)) {
-            $news = []; 
+            $news = []; // Khởi tạo mảng trống
         }
 
+        // Kiểm tra nếu $news có dữ liệu
         if (!empty($news)):
             foreach ($news as $item): ?>
                 <tr>
