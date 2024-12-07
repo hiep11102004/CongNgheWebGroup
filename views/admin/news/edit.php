@@ -1,41 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sửa tin tức</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Sửa Bài Viết</title>
 </head>
 <body>
-    <div class="container">
-        <h2 class="my-4">Sửa tin tức</h2>
-        <form method="POST" action="index.php?page=admin&action=edit&id=<?php echo $news['id']; ?>" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label for="title" class="form-label">Tiêu đề</label>
-                <input type="text" class="form-control" id="title" name="title" value="<?php echo $news['title']; ?>" required>
-            </div>
-            <div class="mb-3">
-                <label for="content" class="form-label">Nội dung</label>
-                <textarea class="form-control" id="content" name="content" rows="5" required><?php echo $news['content']; ?></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="category_id" class="form-label">Danh mục</label>
-                <select class="form-select" id="category_id" name="category_id" required>
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?php echo $category['id']; ?>" <?php echo $category['id'] == $news['category_id'] ? 'selected' : ''; ?>><?php echo $category['name']; ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="image" class="form-label">Ảnh</label>
-                <input type="file" class="form-control" id="image" name="image">
-                <img src="uploads/<?php echo $news['image']; ?>" class="img-thumbnail mt-2" width="100">
-            </div>
-            <button type="submit" class="btn btn-warning">Cập nhật</button>
-        </form>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <h2>Sửa Bài Viết</h2>
+    <form action="index.php?controller=news&action=edit&id=<?= $news['id'] ?>" method="post">
+        <label>Tiêu đề:</label>
+        <input type="text" name="title" value="<?= $news['title'] ?>" required>
+        <label>Nội dung:</label>
+        <textarea name="content"><?= $news['content'] ?></textarea>
+        <label>Danh mục:</label>
+        <select name="category_id">
+            <option value="1" <?= $news['category_id'] == 1 ? 'selected' : '' ?>>Danh mục 1</option>
+            <option value="2" <?= $news['category_id'] == 2 ? 'selected' : '' ?>>Danh mục 2</option>
+        </select>
+        <button type="submit">Lưu</button>
+    </form>
 </body>
 </html>

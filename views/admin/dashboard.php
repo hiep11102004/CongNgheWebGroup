@@ -1,39 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Bảng Điều Khiển</title>
 </head>
 <body>
-    <div class="container">
-        <h2 class="my-4">Dashboard</h2>
-        <a href="index.php?page=admin&action=add" class="btn btn-success mb-3">Thêm tin tức</a>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Tiêu đề</th>
-                    <th>Danh mục</th>
-                    <th>Thao tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($newsList as $news): ?>
-                    <tr>
-                        <td><?php echo $news['title']; ?></td>
-                        <td><?php echo $news['category_id']; ?></td>
-                        <td>
-                            <a href="index.php?page=admin&action=edit&id=<?php echo $news['id']; ?>" class="btn btn-warning">Sửa</a>
-                            <a href="index.php?page=admin&action=delete&id=<?php echo $news['id']; ?>" class="btn btn-danger">Xóa</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+    <h2>Bảng Điều Khiển</h2>
+    <a href="index.php?controller=news&action=add">Thêm bài viết</a> | 
+    <a href="index.php?controller=admin&action=logout">Đăng xuất</a>
+    <table border="1">
+        <tr>
+            <th>ID</th><th>Tiêu đề</th><th>Ngày tạo</th><th>Hành động</th>
+        </tr>
+        <?php
+        if (!isset($news) || !is_array($news)) {
+            $news = []; 
+        }
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        if (!empty($news)):
+            foreach ($news as $item): ?>
+                <tr>
+                    <td><?= htmlspecialchars($item['id']) ?></td>
+                    <td><?= htmlspecialchars($item['title']) ?></td>
+                    <td><?= htmlspecialchars($item['created_at']) ?></td>
+                    <td>
+                        <a href="index.php?controller=news&action=edit&id=<?= htmlspecialchars($item['id']) ?>">Sửa</a> | 
+                        <a href="index.php?controller=news&action=delete&id=<?= htmlspecialchars($item['id']) ?>">Xóa</a>
+                    </td>
+                </tr>
+            <?php endforeach; 
+        else: ?>
+            <tr>
+                <td colspan="4">Không có bài viết nào</td>
+            </tr>
+        <?php endif; ?>
+    </table>
 </body>
 </html>
